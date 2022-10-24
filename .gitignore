@@ -3,6 +3,10 @@
 .idea
 out
 
+# log
+logs
+*.log
+
 # Ignore Gradle GUI config
 gradle-app.setting
 

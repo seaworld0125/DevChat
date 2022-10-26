@@ -1,6 +1,7 @@
 package com.ntt.app.auth;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
@@ -19,12 +20,12 @@ import org.springframework.stereotype.Component;
  * 2022-10-26        Kim       properties 필드 설정
  * 2022-10-26        Kim       immutable 하도록 @ConstructorBinding 적용
  */
-@Component
 @ConfigurationProperties(prefix = "app.auth")
 @ConstructorBinding
+@RequiredArgsConstructor
 @Getter
 public class AuthProperties {
 
-    private String tokenSecret;
-    private long tokenExpirationMsec;
+    private final String tokenSecret;
+    private final long tokenExpirationMsec;
 }

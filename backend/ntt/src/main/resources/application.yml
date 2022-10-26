@@ -1,0 +1,5 @@
+
+app:
+  auth:
+    token-secret: myTestJwtTokenSecretYaYaYaYaYaYaYaYa
+    token-expiration-msec: 21600000

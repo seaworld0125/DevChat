@@ -24,6 +24,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // apache lang3
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+    // jackson
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
     // mysql
     implementation 'mysql:mysql-connector-java'
@@ -31,6 +38,10 @@ dependencies {
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // annotation processor
+    compileOnly 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
     // test lombok
     testCompileOnly 'org.projectlombok:lombok'
@@ -45,6 +56,7 @@ dependencies {
 
     // spring test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     // json
     implementation 'org.json:json:20220320'

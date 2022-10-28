@@ -3,3 +3,21 @@ app:
   auth:
     token-secret: myTestJwtTokenSecretYaYaYaYaYaYaYaYa
     token-expiration-msec: 21600000
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          authclient:
+            provider: notion
+            client-id: 1987a01d-061c-40b9-83f7-2d2a57e06f5a
+            client-secret: secret_3ZZ9ebY4w38JKd3P61EF5J9557HAJsxKTwoguF3zDDU
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/notion
+        provider:
+          notion:
+            authorization-uri: https://api.notion.com/v1/oauth/authorize
+            token-uri: https://api.notion.com/v1/oauth/token
+            user-info-uri: https://api.notion.com/v1/users/
+            user-name-attribute: id

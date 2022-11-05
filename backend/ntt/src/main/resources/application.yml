@@ -5,6 +5,22 @@ app:
     token-expiration-msec: 21600000
 
 spring:
+  jpa:
+    database: h2
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/ntt;MODE=MYSQL
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
   security:
     oauth2:
       client:

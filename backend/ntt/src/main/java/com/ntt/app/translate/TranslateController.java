@@ -1,5 +1,8 @@
 package com.ntt.app.translate;
 
+import com.ntt.app.auth.CustomUserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,5 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TranslateController {
 
-
+    @GetMapping("/test")
+    public String test(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        return userDetails.getId();
+    }
 }

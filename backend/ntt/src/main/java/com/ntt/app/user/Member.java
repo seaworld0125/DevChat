@@ -4,8 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.*;
-
 /**
  * packageName    : com.ntt.app.user
  * fileName       : User
@@ -22,15 +20,18 @@ import static javax.persistence.GenerationType.*;
 @AllArgsConstructor
 @Builder
 @Getter
-public class User {
+@ToString
+public class Member {
 
     @Id
-    @GeneratedValue(strategy = AUTO)
-    private Long id;
+    @Column(name = "ID")
+    private String id;
 
-    @Column(name = "EMAIL", unique = true)
-    private String email;
+    @Setter
+    @Column(name = "NAME")
+    private String name;
 
-    @Column(name = "PASSWORD")
-    private String password;
+    @Setter
+    @Column(name = "AVATAR_URL")
+    private String avatarUrl;
 }

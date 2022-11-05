@@ -1,8 +1,10 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.user.User;
+import com.ntt.app.user.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -21,19 +23,24 @@ import java.util.*;
  * 2022-10-26        Kim       최초 생성
  */
 @Builder
-@AllArgsConstructor
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails, OAuth2User {
 
-    private final User user;
+    @Getter
+    private final String id;
+
     private final List<GrantedAuthority> authorities;
-    private final Map<String, Object> oauthUserAttributes;
 
-    public static CustomUserDetails create(User user, Map<String, Object> oauthUserAttributes) {
-        return new CustomUserDetails(user, List.of(() -> "ROLE_USER"), oauthUserAttributes);
+    public static CustomUserDetails create(Member member) {
+        return new CustomUserDetails(member.getId(), List.of(() -> "ROLE_USER"));
     }
 
-    public static CustomUserDetails create(User user) {
-        return create(user, new HashMap<>());
+    public static CustomUserDetails create(String id) {
+        return new CustomUserDetails(id, List.of(() -> "ROLE_USER"));
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
+        return null;
     }
 
     @Override
@@ -43,12 +50,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return null;
     }
 
     @Override
     public String getUsername() {
-        return user.getId().toString();
+        return this.id;
     }
 
     @Override
@@ -69,5 +76,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return this.id;
     }
 }

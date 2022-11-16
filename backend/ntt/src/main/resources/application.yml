@@ -1,39 +1,4 @@
-
-app:
-  auth:
-    token-secret: myTestJwtTokenSecretYaYaYaYaYaYaYaYa
-    token-expiration-msec: 21600000
-
 spring:
-  jpa:
-    database: h2
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
-
-  datasource:
-    url: jdbc:h2:tcp://localhost/~/ntt;MODE=MYSQL
-    username: sa
-    password:
-
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
-  security:
-    oauth2:
-      client:
-        registration:
-          authclient:
-            provider: notion
-            client-id: 1987a01d-061c-40b9-83f7-2d2a57e06f5a
-            client-secret: secret_3ZZ9ebY4w38JKd3P61EF5J9557HAJsxKTwoguF3zDDU
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/notion
-        provider:
-          notion:
-            authorization-uri: https://api.notion.com/v1/oauth/authorize
-            token-uri: https://api.notion.com/v1/oauth/token
-            user-info-uri: https://api.notion.com/v1/users/
-            user-name-attribute: id
+  config:
+    import:
+      - classpath:/DevChat-secret/application.yml

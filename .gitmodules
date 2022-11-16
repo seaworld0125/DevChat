@@ -1,0 +1,3 @@
+[submodule "backend/DevChat-secret"]
+	path = backend/ntt/src/main/resources/DevChat-secret
+	url = https://github.com/seaworld0125/DevChat-secret.git

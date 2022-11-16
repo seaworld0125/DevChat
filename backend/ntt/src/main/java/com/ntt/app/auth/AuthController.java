@@ -23,16 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    /*
-
-    https://www.tistory.com/oauth/authorize?
-      client_id=d3c73adcaefe78f68eb5f3d6b85be5b1
-      &redirect_uri=http://localhost:8080/api/auth/tistory/oauth2
-      &response_type=code
-      &state=ntt
-
-     */
-
     private final RedisTemplate<String, String> redisTemplate;
 
     @GetMapping("/tistory/oauth2")

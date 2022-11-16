@@ -1,5 +1,4 @@
-
-app:
-  auth:
-    token-secret: myTestJwtTokenSecretYaYaYaYaYaYaYaYa
-    token-expiration-msec: 21600000
+spring:
+  config:
+    import:
+      - classpath:/DevChat-secret/application.yml

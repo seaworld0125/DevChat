@@ -2,11 +2,16 @@ package com.ntt.app.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.Map;
 
 /**
  * packageName    : com.ntt.app.auth
@@ -33,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
 
         http
-                .headers().frameOptions().disable().and()
                 .csrf().disable()
                 .cors().disable()
                 .formLogin().disable()
@@ -42,11 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-//                .antMatchers("")
-//                .permitAll()
+                .antMatchers("/home/**")
+                .permitAll()
                 .anyRequest()
-                .permitAll();
-//                .authenticated();
+                //.permitAll()
+                .authenticated();
 
         http
                 .oauth2Login()

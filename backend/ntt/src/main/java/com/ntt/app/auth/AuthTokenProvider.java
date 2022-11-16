@@ -1,6 +1,5 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.user.Member;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

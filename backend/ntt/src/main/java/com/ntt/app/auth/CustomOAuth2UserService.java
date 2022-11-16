@@ -1,7 +1,7 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.user.Member;
-import com.ntt.app.user.MemberRepository;
+import com.ntt.app.member.Member;
+import com.ntt.app.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -9,11 +9,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
-
-import static com.ntt.app.auth.NotionParameterKeys.*;
 
 /**
  * packageName    : com.ntt.app.auth
@@ -37,16 +32,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         // http://localhost:8080/oauth2/authorization/authclient
 
-        Map<String, Object> additionalParameters = userRequest.getAdditionalParameters();
-
-        // Json 포멧도 아닌 이상한 포멧으로 데이터가 들어와서...id만 골라냈음
-        String userId = getUserId(additionalParameters.get(JSON_KEY_OWNER).toString());
-
-        // 커스텀 컨버터를 만들어서 Notion Retrieve a user api 용 Request Entity를 생성하였음
-        super.setRequestEntityConverter(new OAuth2UserRequestEntityCustomConverter(userId));
-
-        // DefaultOAuth2UserService를 통해서 loadUser 수행
         OAuth2User user = super.loadUser(userRequest);
+        System.out.println(user);
+        System.out.println(user.getAttributes().get("login"));
+        System.out.println(user.getAttributes().get("id"));
+        System.out.println(user.getAttributes().get("avatar_url"));
+        System.out.println(user.getAttributes().get("html_url"));
 
         return process(user);
     }
@@ -55,29 +46,38 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     * 1. 자동 가입 처리
     * 2. 업데이트 처리
     * */
-    @Transactional
-    public CustomUserDetails process(OAuth2User oAuth2User) {
+    private CustomUserDetails process(OAuth2User oAuth2User) {
 
         Member member = memberRepository
-                        .findById(oAuth2User.getName())
+                        .findById(oAuth2User.getAttributes().get("id").toString())
                         .orElseGet(() -> createUser(oAuth2User));
 
-        if(!StringUtils.equals(oAuth2User.getAttribute("name"), member.getName())) {
-            member.setName(oAuth2User.getAttribute("name"));
-        }
-        if(!StringUtils.equals(oAuth2User.getAttribute("avatar_url"), member.getAvatarUrl())) {
-            member.setAvatarUrl(oAuth2User.getAttribute("avatar_url"));
-        }
+        update(oAuth2User, member);
+
+        memberRepository.save(member); // 변경 감지 사용안함
 
         return CustomUserDetails.create(member);
+    }
+
+    private void update(OAuth2User oAuth2User, Member member) {
+        if(!StringUtils.equals(oAuth2User.getAttributes().get("name").toString(), member.getName())) {
+            member.setName(oAuth2User.getAttributes().get("name").toString());
+        }
+        if(!StringUtils.equals(oAuth2User.getAttributes().get("avatar_url").toString(), member.getAvatar())) {
+            member.setAvatar(oAuth2User.getAttributes().get("avatar_url").toString());
+        }
+        if(!StringUtils.equals(oAuth2User.getAttributes().get("html_url").toString(), member.getAvatar())) {
+            member.setAvatar(oAuth2User.getAttributes().get("html_url").toString());
+        }
     }
 
     private Member createUser(OAuth2User oAuth2User) {
         return memberRepository.save(
                 Member.builder()
-                        .id(oAuth2User.getAttribute("id"))
-                        .name(oAuth2User.getAttribute("name"))
-                        .avatarUrl(oAuth2User.getAttribute("avatar_url"))
+                        .id(oAuth2User.getAttributes().get("id").toString())
+                        .name(oAuth2User.getAttributes().get("name").toString())
+                        .avatar(oAuth2User.getAttributes().get("avatar_url").toString())
+                        .github(oAuth2User.getAttributes().get("html_url").toString())
                         .build()
         );
     }

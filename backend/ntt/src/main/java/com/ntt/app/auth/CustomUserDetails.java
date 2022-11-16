@@ -1,10 +1,8 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.user.Member;
-import lombok.AllArgsConstructor;
+import com.ntt.app.member.Member;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -46,6 +44,14 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.unmodifiableList(authorities);
+    }
+
+    public String getRedisNotionKey() {
+        return "notion-" + this.id;
+    }
+
+    public String getRedisTistoryKey() {
+        return "tistory-" + this.id;
     }
 
     @Override

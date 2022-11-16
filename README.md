@@ -1,2 +1,1 @@
-# Notion-to-tistory
-NTT (Notion-to-tistory 서비스)
+# DevChat 서비스

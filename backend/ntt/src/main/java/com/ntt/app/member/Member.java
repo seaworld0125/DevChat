@@ -41,14 +41,6 @@ public class Member {
     @Column(name = "GITHUB")
     private String github;
 
-    @Setter
-    @Column(name = "CONTACT")
-    private String contact;
-
-    @Setter
-    @Column(name = "COMMENT")
-    private String comment;
-
     @OneToMany(mappedBy = "member")
     @Column(name = "MEMBER_TAGS")
     @Builder.Default

@@ -66,7 +66,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if(!StringUtils.equals(oAuth2User.getAttributes().get("avatar_url").toString(), member.getAvatar())) {
             member.setAvatar(oAuth2User.getAttributes().get("avatar_url").toString());
         }
-        if(!StringUtils.equals(oAuth2User.getAttributes().get("html_url").toString(), member.getAvatar())) {
+        if(!StringUtils.equals(oAuth2User.getAttributes().get("html_url").toString(), member.getGithub())) {
             member.setAvatar(oAuth2User.getAttributes().get("html_url").toString());
         }
     }
@@ -80,11 +80,5 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                         .github(oAuth2User.getAttributes().get("html_url").toString())
                         .build()
         );
-    }
-
-    private String getUserId(String badJsonString) {
-        int fromIdx = badJsonString.indexOf("id") + 3;
-        int toIdx = badJsonString.indexOf(',', fromIdx);
-        return badJsonString.substring(fromIdx, toIdx);
     }
 }

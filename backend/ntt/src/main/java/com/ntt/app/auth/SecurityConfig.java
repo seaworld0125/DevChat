@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/home/**")
 //                .permitAll()
                 .anyRequest()
-                //.permitAll()
-                .authenticated();
+                .permitAll();
+//                .authenticated();
 
         http
                 .oauth2Login()

@@ -11,11 +11,6 @@ import java.util.List;
  * fileName       : User
  * author         : Kim
  * date           : 2022-10-26
- * description    :
- * ===========================================================
- * DATE              AUTHOR             NOTE
- * -----------------------------------------------------------
- * 2022-10-26        Kim       최초 생성
  */
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

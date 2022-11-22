@@ -1,6 +1,6 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.member.Member;
+import com.ntt.app.member.domain.Member;
 import com.ntt.app.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -15,11 +15,6 @@ import org.springframework.stereotype.Service;
  * fileName       : CustomOAuth2UserService
  * author         : Kim
  * date           : 2022-10-26
- * description    :
- * ===========================================================
- * DATE              AUTHOR             NOTE
- * -----------------------------------------------------------
- * 2022-10-26        Kim       최초 생성
  */
 @Service
 @RequiredArgsConstructor

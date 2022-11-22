@@ -1,6 +1,6 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.member.Member;
+import com.ntt.app.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

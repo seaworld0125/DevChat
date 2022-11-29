@@ -1,4 +1,4 @@
-package com.ntt.app.Exception;
+package com.ntt.app.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -79,7 +79,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     protected ErrorResponse handleException(Exception e) {
-        log.info(e.getMessage());
+        log.info("{}", e);
         return ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
     }
 }

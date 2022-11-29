@@ -28,11 +28,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // http://localhost:8080/oauth2/authorization/authclient
 
         OAuth2User user = super.loadUser(userRequest);
-        System.out.println(user);
-        System.out.println(user.getAttributes().get("login"));
-        System.out.println(user.getAttributes().get("id"));
-        System.out.println(user.getAttributes().get("avatar_url"));
-        System.out.println(user.getAttributes().get("html_url"));
+//        System.out.println(user);
+//        System.out.println(user.getAttributes().get("login"));
+//        System.out.println(user.getAttributes().get("id"));
+//        System.out.println(user.getAttributes().get("avatar_url"));
+//        System.out.println(user.getAttributes().get("html_url"));
 
         return process(user);
     }

@@ -1,4 +1,4 @@
-package com.ntt.app.Exception;
+package com.ntt.app.exception;
 
 import lombok.Getter;
 

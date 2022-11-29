@@ -25,6 +25,7 @@ public class MemberResponse {
     private List<String> tags;
 
     public static MemberResponse from(Member member) {
+
         return MemberResponse.builder()
                 .name(member.getName())
                 .avatar(member.getAvatar())

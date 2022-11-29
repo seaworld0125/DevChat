@@ -1,6 +1,6 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.member.Member;
+import com.ntt.app.member.domain.Member;
 import com.ntt.app.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -15,11 +15,6 @@ import org.springframework.stereotype.Service;
  * fileName       : CustomOAuth2UserService
  * author         : Kim
  * date           : 2022-10-26
- * description    :
- * ===========================================================
- * DATE              AUTHOR             NOTE
- * -----------------------------------------------------------
- * 2022-10-26        Kim       최초 생성
  */
 @Service
 @RequiredArgsConstructor
@@ -33,11 +28,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         // http://localhost:8080/oauth2/authorization/authclient
 
         OAuth2User user = super.loadUser(userRequest);
-        System.out.println(user);
-        System.out.println(user.getAttributes().get("login"));
-        System.out.println(user.getAttributes().get("id"));
-        System.out.println(user.getAttributes().get("avatar_url"));
-        System.out.println(user.getAttributes().get("html_url"));
+//        System.out.println(user);
+//        System.out.println(user.getAttributes().get("login"));
+//        System.out.println(user.getAttributes().get("id"));
+//        System.out.println(user.getAttributes().get("avatar_url"));
+//        System.out.println(user.getAttributes().get("html_url"));
 
         return process(user);
     }
@@ -66,7 +61,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if(!StringUtils.equals(oAuth2User.getAttributes().get("avatar_url").toString(), member.getAvatar())) {
             member.setAvatar(oAuth2User.getAttributes().get("avatar_url").toString());
         }
-        if(!StringUtils.equals(oAuth2User.getAttributes().get("html_url").toString(), member.getAvatar())) {
+        if(!StringUtils.equals(oAuth2User.getAttributes().get("html_url").toString(), member.getGithub())) {
             member.setAvatar(oAuth2User.getAttributes().get("html_url").toString());
         }
     }
@@ -80,11 +75,5 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                         .github(oAuth2User.getAttributes().get("html_url").toString())
                         .build()
         );
-    }
-
-    private String getUserId(String badJsonString) {
-        int fromIdx = badJsonString.indexOf("id") + 3;
-        int toIdx = badJsonString.indexOf(',', fromIdx);
-        return badJsonString.substring(fromIdx, toIdx);
     }
 }

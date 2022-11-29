@@ -1,6 +1,6 @@
 package com.ntt.app.auth;
 
-import com.ntt.app.member.Member;
+import com.ntt.app.member.domain.Member;
 import com.ntt.app.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

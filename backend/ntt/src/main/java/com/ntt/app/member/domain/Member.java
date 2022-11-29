@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * packageName    : com.ntt.app.user
@@ -38,35 +40,33 @@ public class Member {
     private String github;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Column(name = "TAGS")
     @Builder.Default
     private Set<Tag> tags = new HashSet<>();
 
     public boolean updateTag(TagUpdateRequest request) {
 
-        if(request.getTags() == null || request.getTags().isEmpty() || request.getTags().size() > 3) return false;
+        // "새로운 태그 셋"에 없는 기존 태그는 "기존 태그 셋"에서 제거해야 함
+        // "새로운 태그 셋"에만 있는 태그는 "기존 태그 셋"에 추가해야 함
 
-        // 새로운 태그 셋에 없는 기존 태그는 기존 태그 셋에서 제거해야 함
-        // 새로운 태그 셋에만 있는 태그는 기존 태그 셋에 추가해야 함
-        // 둘 다 가지고 있는 태그는 아무런 동작을 하지 않음
-
-        for(Tag tag : this.tags) {
-
-            if(!request.getTags().contains(tag.getName())) {
-                this.tags.remove(tag);
-            }
-        }
-        for(String tagName : request.getTags()) {
-
-            if(!this.tags.contains(tagName)) {
-                this.tags.add(
-                        Tag.builder()
-                                .name(tagName)
+        Set<Tag> newTags = request.getTags()
+                .stream()
+                .map(
+                        E -> Tag.builder()
+                                .name(E)
                                 .member(this)
                                 .build()
-                );
-            }
+                )
+                .collect(Collectors.toSet());
+
+        Iterator<Tag> tagIterator = this.tags.iterator();
+
+        while(tagIterator.hasNext()) {
+
+            if(newTags.contains(tagIterator.next())) continue;
+
+            tagIterator.remove();
         }
+        this.tags.addAll(newTags);
         return true;
     }
 }

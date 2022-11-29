@@ -26,15 +26,13 @@ public class Tag {
     private String name;
 
     @ManyToOne
+    @ToString.Exclude
     private Member member;
 
     @Override
     public boolean equals(Object t) {
         if(t instanceof Tag) {
             return this.name.equals(((Tag)t).getName());
-        }
-        if(t instanceof String) {
-            return this.name.equals(t);
         } else {
             return false;
         }

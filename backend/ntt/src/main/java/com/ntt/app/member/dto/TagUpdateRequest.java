@@ -1,8 +1,10 @@
 package com.ntt.app.member.dto;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,9 +13,19 @@ import java.util.Set;
  * author         : Kim
  * date           : 2022-11-21
  */
-@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TagUpdateRequest {
 
+    @Size(min = 1, max = 3)
     private Set<String> tags;
+
+    private void checkValid() {
+        if(tags == null) tags = new HashSet<>();
+    }
+
+    public Set<String> getTags() {
+        checkValid();
+        return tags;
+    }
 }

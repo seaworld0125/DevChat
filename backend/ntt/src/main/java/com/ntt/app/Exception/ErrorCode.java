@@ -1,4 +1,4 @@
-package com.ntt.app.Exception;
+package com.ntt.app.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +24,10 @@ public enum ErrorCode {
     // Member
     MEMBER_NOT_FOUND("존재하지 않는 사용자입니다", HttpStatus.NOT_FOUND, "MEMBER"),
     MEMBER_TAG_UPDATE_FAIL("사용자 태그 업데이트 실패", HttpStatus.BAD_REQUEST, "MEMBER"),
+
+    // Meeting
+    MEETING_NOT_FOUND("존재하지 않는 모임입니다", HttpStatus.NOT_FOUND, "MEETING"),
+    MEETING_APPLICANT_CHANGE_STATUS_FAIL("지원자 상태 변경 실패", HttpStatus.BAD_REQUEST, "MEETING"),
     ;
 
     private String message;
